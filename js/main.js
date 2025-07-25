@@ -193,6 +193,12 @@ document.addEventListener('DOMContentLoaded', () => {
       this.audioCache = new Map();
     }
 
+    resumeContext() {
+      if (this.audioContext.state === 'suspended') {
+        this.audioContext.resume();
+      }
+    }
+
     async preloadAudio(audioFiles) {
       const promises = audioFiles.map(async (file) => {
         try {
@@ -547,6 +553,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Start the game
   startButton.addEventListener('click', () => {
     const game = new StrangerThingsGame();
+    game.audioManager.resumeContext(); // Resume audio context on user interaction
     game.init();
   });
 
