@@ -199,6 +199,12 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
 
+    playSilentAudio() {
+      const source = this.audioContext.createBufferSource();
+      source.connect(this.audioContext.destination);
+      source.start();
+    }
+
     async preloadAudio(audioFiles) {
       const promises = audioFiles.map(async (file) => {
         try {
@@ -553,7 +559,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Start the game
   startButton.addEventListener('click', () => {
     const game = new StrangerThingsGame();
-    game.audioManager.resumeContext(); // Resume audio context on user interaction
+    game.audioManager.playSilentAudio(); // Toca um áudio silencioso para desbloquear o contexto de áudio
     game.init();
   });
 
